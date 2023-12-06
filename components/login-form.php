@@ -1,7 +1,5 @@
 <?php
-// Start the session to maintain user state
-session_start();
-// Clear all session variables
+// Clear all session variables (removes all login information)
 session_unset(); 
 
 // Include the functions file for utility functions
