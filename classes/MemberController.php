@@ -97,6 +97,17 @@ class MemberController {
         return false;
     }
 
+    //Function to check if user is an admin
+    public function is_admin(array $member){
+        $id = $_SESSION['user']['ID'];
+
+
+        $sql = "SELECT * FROM user_roles WHERE user_id = $ID";
+        return $this->db->runSQL($sql, $member);
+
+        //$_SESSION['user']['ID']
+    }
+
 
 }
 

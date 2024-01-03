@@ -1,6 +1,6 @@
 <?php 
-    session_start(); 
     require_once 'inc/functions.php';
+    require __DIR__ . "/inc/header.php";
 
     if (!isset($_SESSION['user']))
     {
@@ -8,9 +8,9 @@
     }
 
     $title = 'Member Page'; 
-    require __DIR__ . "/inc/header.php"; 
 ?>
 
 <h1>Welcome <?= $_SESSION['user']['firstname'] ?? 'Member' ?>!</h1>
+<h1>Welcome <?= $_SESSION['user']['ID'] ?? 'Member' ?>!</h1>
 
 <?php require __DIR__ . "/inc/footer.php"; ?>
