@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 29, 2023 at 09:08 AM
+-- Generation Time: Jan 03, 2024 at 03:56 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -24,6 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'vegetable'),
+(2, 'bread');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `equipments`
 --
 
@@ -31,15 +50,36 @@ CREATE TABLE `equipments` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `image` varchar(255) NOT NULL
+  `image` varchar(255) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `buy_price` float NOT NULL,
+  `sell_price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `equipments`
 --
 
-INSERT INTO `equipments` (`id`, `name`, `description`, `image`) VALUES
-(1, 'test', 'test', 'test');
+INSERT INTO `equipments` (`id`, `name`, `description`, `image`, `stock`, `buy_price`, `sell_price`) VALUES
+(1, 'Carrot', 'A simple orange carrot', 'https://media.istockphoto.com/id/694934682/vector/carrot-flat-icon-vegetable-and-diet-vector-graphics-a-colorful-solid-pattern-on-a-white.jpg?s=612x612&w=0&k=20&c=tY3mALAe1MY3Xe7-YSZUNPwilsS8idA-mkWk2lrf67w=', 10, 0.5, 1.25);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `equipment_category`
+--
+
+CREATE TABLE `equipment_category` (
+  `equipment_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `equipment_category`
+--
+
+INSERT INTO `equipment_category` (`equipment_id`, `category_id`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -53,6 +93,14 @@ CREATE TABLE `roles` (
   `createdOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `modifiedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `createdOn`, `modifiedOn`) VALUES
+(1, 'admin', '2023-12-06 09:39:15', '2023-12-06 09:39:15'),
+(2, 'user', '2023-12-06 09:41:37', '2023-12-06 09:42:32');
 
 -- --------------------------------------------------------
 
@@ -82,7 +130,13 @@ INSERT INTO `users` (`ID`, `firstname`, `lastname`, `password`, `email`, `create
 (8, 'jim', 'smith', '$2y$10$7j56SeGeR5YRMSAjo5LVYu/og703KV1uodU1YDMX73Tg85YNQFTva', 'jimsmith@gmail.com', '2023-11-15 14:31:29', '2023-11-15 14:31:29'),
 (9, 'jim', 'smith', '$2y$10$7j56SeGeR5YRMSAjo5LVYu/og703KV1uodU1YDMX73Tg85YNQFTva', 'jimsmith@gmail.com', '2023-11-15 14:31:29', '2023-11-15 14:31:47'),
 (10, 'amy', 'smith', '$2y$10$XJpmJ9LHeUUe0dE7YQVf6uQI9.lQcYjV1ks0IEnDb4w0njBZ/cQ/a', 'amysmith@test.com', '2023-11-28 15:03:11', '2023-11-28 15:03:11'),
-(11, 'amy', 'smith', '$2y$10$XJpmJ9LHeUUe0dE7YQVf6uQI9.lQcYjV1ks0IEnDb4w0njBZ/cQ/a', 'amysmith@test.com', '2023-11-28 15:03:11', '2023-11-28 15:03:11');
+(11, 'amy', 'smith', '$2y$10$XJpmJ9LHeUUe0dE7YQVf6uQI9.lQcYjV1ks0IEnDb4w0njBZ/cQ/a', 'amysmith@test.com', '2023-11-28 15:03:11', '2023-11-28 15:03:11'),
+(12, 'kieran', 'Sucks', '$2y$10$Uw1/LA.M.lvKPg5VoFosO.3CYgCT6Q/IOSTRsVgXO56GsgkIx8Tbq', 'KieranSucksNot@gmail.com', '2023-12-06 09:31:14', '2023-12-06 09:31:14'),
+(14, 'Bing', 'Chilling', '$2y$10$.ytmXDGq01gaw7cwZdmtDOwq3Yks/J5pvffmoeOnrwhwFVr/ACtjC', 'HeHeHeHa@gmail.com', '2023-12-06 09:45:48', '2023-12-06 09:45:48'),
+(16, 'someone', 'else', '$2y$10$zTiIRdbpPPU10SRehaq32ePkIL3POGfChdRS8Y3fSyOx0mhCCYk9G', 'ahh@aol.com', '2023-12-06 09:47:50', '2023-12-06 09:47:50'),
+(18, 'Go', 'Away', '$2y$10$mAYwpwqNKPfii2eo/4QpReJJtywyKval6FgY6xK8qPcJKadroMPxm', 'lmao@proton.com', '2023-12-06 09:48:44', '2023-12-06 09:48:44'),
+(19, 'Jack', 'Hine', '$2y$10$oiFc9Qg7a1G2Zm.YM3kUbe.KuhxPh7uayjyzklG8j3KNFbl3reNAK', 'JackHine@gmail.com', '2023-12-06 10:17:32', '2023-12-06 10:17:32'),
+(20, 'Example', 'Account', '$2y$10$3Z.4NqWWNoPP0fBJdZjxHunAaOd.ZEuhJmjhZTmyJE6z48fb9Vq4m', 'example@gmail.com', '2024-01-03 09:57:51', '2024-01-03 09:57:51');
 
 -- --------------------------------------------------------
 
@@ -96,14 +150,36 @@ CREATE TABLE `user_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
+(20, 1),
+(20, 1),
+(20, 1);
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `equipments`
 --
 ALTER TABLE `equipments`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `equipment_category`
+--
+ALTER TABLE `equipment_category`
+  ADD KEY `foreign key 1` (`equipment_id`),
+  ADD KEY `foreign key 2` (`category_id`);
 
 --
 -- Indexes for table `roles`
@@ -121,12 +197,18 @@ ALTER TABLE `users`
 -- Indexes for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  ADD PRIMARY KEY (`user_id`,`role_id`),
-  ADD KEY `role_id` (`role_id`);
+  ADD KEY `role_id` (`role_id`),
+  ADD KEY `user_id` (`user_id`,`role_id`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `equipments`
@@ -138,17 +220,24 @@ ALTER TABLE `equipments`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `equipment_category`
+--
+ALTER TABLE `equipment_category`
+  ADD CONSTRAINT `foreign key 1` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `foreign key 2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_roles`
