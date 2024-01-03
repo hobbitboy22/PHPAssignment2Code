@@ -97,15 +97,28 @@ class MemberController {
         return false;
     }
 
-    //Function to check if user is an admin
-    public function is_admin(array $member){
-        $id = $_SESSION['user']['ID'];
-
-
-        $sql = "SELECT * FROM user_roles WHERE user_id = $ID";
-        return $this->db->runSQL($sql, $member);
-
-        //$_SESSION['user']['ID']
+    //Function to get the users role
+    public function get_role(){
+        $id = (int)$_SESSION['user']['ID'];
+        $sql = "SELECT role_id FROM user_roles WHERE user_id = :id";
+    
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    
+        $stmt->execute();
+    
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if (!empty($result)) {
+            $roleid = $result['role_id'];
+            $sql2 = "SELECT name FROM roles WHERE id = :roleid";
+            
+            $stmt2 = $this->db->prepare($sql2);
+            $stmt2->bindParam(':roleid', $roleid, PDO::PARAM_INT);
+            $stmt2->execute();
+    
+            $_SESSION['user']['role'] = $stmt2->fetchColumn();
+        }
     }
 
 

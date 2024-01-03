@@ -34,9 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
          // Set user session data on successful login
          $_SESSION['user'] = $member;
 
+        // Get the role of the member
+        $controllers->members()->get_role($member);
+
          // Redirect based on user type
-         if ($member['user_type'] === 'admin') {
-          redirect('.\Inventory.php'); // Redirect admin users
+         if ($_SESSION['user']['role'] === 'admin') {
+          redirect('inventory'); // Redirect admin users
       } else {
           redirect('member'); // Redirect non-admin users
       }

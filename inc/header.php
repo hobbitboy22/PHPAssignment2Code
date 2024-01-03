@@ -4,9 +4,14 @@
 //   session_start();
 // }
 
+session_start();
 
-session_start()
-
+if (isset($_SESSION['user'])){
+  $logged_in = TRUE;
+}
+else{
+  $logged_in = FALSE;
+}
 
 ?>
 
@@ -35,11 +40,15 @@ session_start()
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="./index.php">Home</a>
+        <a class="nav-link" href="<?php echo $logged_in ? './member.php' : './index.php'; ?>">
+          <?php echo $logged_in ? 'Home' : 'Home'; ?>
+        </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="./Inventory.php">Equipment</a>
-      </li>
+      <?php if ($logged_in){ ?>
+        <li class="nav-item">
+          <a class="nav-link" href="./Inventory.php">Equipment</a>
+        </li>
+      <?php } ?>
       <li class="nav-item">
         <a class="nav-link" href="./login.php">Login</a>
       </li>
