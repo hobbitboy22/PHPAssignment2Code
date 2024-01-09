@@ -14,8 +14,8 @@ class equipmentController {
     public function create_equipment(array $equipment) 
     {
         // SQL query to insert new equipment data into the equipments table
-        $sql = "INSERT INTO equipments(name, description, image)
-        VALUES (:name, :description, :image);";
+        $sql = "INSERT INTO equipments(name, description, image, stock, buy_price, sell_price)
+        VALUES (:name, :description, :image, :stock, :buy_price, :sell_price);";
         
         // Execute the SQL query with the provided equipment data
         $this->db->runSQL($sql, $equipment);

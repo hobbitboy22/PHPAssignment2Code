@@ -15,6 +15,9 @@ $equipment = $controllers->equipment()->get_all_equipments();
                 <th>Image</th> 
                 <th>Name</th> 
                 <th>Description</th>
+                <th>Stock</th>
+                <th>Buy Price</th>
+                <th>Sell Price</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +30,14 @@ $equipment = $controllers->equipment()->get_all_equipments();
                     </td>
                     <td><?= htmlspecialchars($equip['name']) ?></td> 
                     <td><?= htmlspecialchars($equip['description']) ?></td>
+                    <td><?= htmlspecialchars($equip['stock']) ?></td>
+                    <td><?= htmlspecialchars($equip['buy_price']) ?></td>
+                    <td><?= htmlspecialchars($equip['sell_price']) ?></td>
+                    <?php if($_SESSION){ //Checks if the user is logged in to remove any error messages from the inventory page
+                      if($_SESSION['user']['role'] == 'admin'){?>
+                        <td><button type = 'button' class = 'btn btn-warning' data-bs-toggle = 'modal' data-bs-target = '#examplemodal'>Edit</button></td>
+                        <td><button type = 'button' class = 'btn btn-danger' data-bs-toggle = 'modal' data-bs-target = '#examplemodal'>Delete</button></td> <?php
+                    }} ?>
                 </tr>
             <?php endforeach; ?>
         </tbody>

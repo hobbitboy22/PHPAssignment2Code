@@ -40,6 +40,7 @@ else{
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
+        <!-- Changes where the home screen takes user if they are logged in -->
         <a class="nav-link" href="<?php echo $logged_in ? './member.php' : './index.php'; ?>">
           <?php echo $logged_in ? 'Home' : 'Home'; ?>
         </a>
