@@ -8,7 +8,7 @@ $equipment = $controllers->equipment()->get_all_equipments();
 
 <!-- HTML for displaying the equipment inventory -->
 <div class="container mt-4">
-    <button type = "button" class = "btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#examplemodal">Add Equipment</button>
+    <button type = "button" class = "btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#additemmodal">Add Equipment</button>
     <h2>Equipment Inventory</h2> 
     <table class="table table-striped"> 
             <tr>
@@ -39,12 +39,15 @@ $equipment = $controllers->equipment()->get_all_equipments();
                     <td><?= htmlspecialchars($equip['sell_price']) ?></td>
                     <?php if($_SESSION){ //Checks if the user is logged in to remove any error messages from the inventory page
                       if($_SESSION['user']['role'] == 'admin'){?>
-                        <td><button type = 'button' class = 'btn btn-warning' data-bs-toggle = 'modal' data-bs-target = '#examplemodal' style = "float: left; margin-right: 15px;">Edit</button>
+                        <td><form action = "./edit.php" method = 'post'>
+                          <input type = 'hidden' name = 'id' valie = '<?= $equip['id'] ?>'>
+                          <input type = 'hidden' name = 'action' value = 'equipment'>
+                          <button type = 'button' class = 'btn btn-warning' data-bs-toggle = 'modal' data-bs-target = '#edititemmodal' style = "float: left; margin-right: 15px;">Edit</button></form>
                         
                           <form action = "./delete.php" method = "post">
                             <input type = "hidden" name = "id" value = "<?= $equip['id'] ?>">
                             <input type = "hidden" name = "action" value = "equipment">
-                            <button type = 'submit' class = 'btn btn-danger' style = "foat: right;">Delete</button>
+                            <button type = 'submit' class = 'btn btn-danger' style = "float: right;">Delete</button>
                           </form>
                         </td> <?php
                     }} ?>
@@ -55,7 +58,7 @@ $equipment = $controllers->equipment()->get_all_equipments();
 </div>
 
 
-<div class="modal" tabindex="-1" role="dialog" id = "examplemodal">
+<div class="modal" tabindex="-1" role="dialog" id = "additemmodal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -96,9 +99,52 @@ $equipment = $controllers->equipment()->get_all_equipments();
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </form>
       </div>
-      
-        
-        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id = "edititemmodal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Item</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action = "./create.php" method = "post" enctype = "multipart/form-data">
+          <div class = "form-group">
+            <label class="form-label">Item Name</label>
+            <input type="text" name="name" class="form-control" placeholder = '<?= $equip['name']; ?>' required>
+          </div>
+          <div class = "form-group">
+            <label class="form-label">Item Description</label>
+            <input type="text" name="description" class="form-control" required>
+          </div>
+          <div class = "form-group" style="width: 150px;">
+            <label class="form-label">Item Stock</label>
+            <input type="number" value=0 min=0 name="stock" class="form-control" required>
+          </div>
+          <div class = "form-group" style="width: 150px;">
+            <label class="form-label">Item Buy Price</label>
+            <input type="number" value=0 min=0 step=0.01 name="buy_price" class="form-control" required>
+          </div>
+          <div class = "form-group" style="width: 150px;">
+            <label class="form-label">Item Sell Price</label>
+            <input type="number" value=0 min=0 step=0.01 name="sell_price" class="form-control" required>
+          </div>
+          <div class = "form-group" style="width: 150px;">
+            <label class="form-label">Item Image</label>
+            <input type="file" name="image" class="form-control-md" required>
+          </div>
+          <div class="modal-footer">
+          <input type = "hidden" name = "action" value = "equipment">
+          <button type="submit" class="btn btn-primary">Confirm</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </form>
+      </div>
       </div>
     </div>
   </div>

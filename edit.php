@@ -35,9 +35,26 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         );
         // Creates the equipment
-        $controllers->equipment()->create_equipment($args);
+        $controllers->equipment()->update_equipment($args);
         // Returns the user back to the inventory page
         header('Location: Inventory.php');
     }
+elseif ($action == "user"){
+    $id = $_POST['id'];
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $args = array(
+        'id'=>$id,
+        'firstname'=>$firstname,
+        'lastname'=>$lastname,
+        'email'=>$email,
+    );
+    // Updates the user with the given information
+    $controllers->members()->update_member($args);
+    // Returns the user back to the users page
+    header('Location: Users.php');
+    }
+    
 }
 ?>
