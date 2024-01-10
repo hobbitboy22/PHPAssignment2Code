@@ -55,7 +55,7 @@ class MemberController {
     public function delete_member(int $id)
     {
         // SQL query to delete a member by its ID
-        $sql = "DELETE FROM users WHERE id = :id";
+        $sql = "DELETE FROM users WHERE ID = :id";
         $args = ['id' => $id];
         // Execute the query
         return $this->db->runSQL($sql, $args);
@@ -71,6 +71,14 @@ class MemberController {
 
             // Execute the query with the provided member data
             $this->db->runSQL($sql, $member);
+
+            // Assign the user a role
+            $sql2 = "INSERT INTO user_roles(user_id, role_id) 
+                     VALUES (LAST_INSERT_ID(), (SELECT id FROM roles WHERE name = 'user'))";
+
+            // Execute the query with the provided member data
+            $this->db->runSQL($sql2);
+
             return true;
 
         } catch (PDOException $e) {

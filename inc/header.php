@@ -6,6 +6,7 @@
 
 session_start();
 
+// Checks if the user is logged in
 if (isset($_SESSION['user'])){
   $logged_in = TRUE;
 }
@@ -50,6 +51,13 @@ else{
           <a class="nav-link" href="./Inventory.php">Equipment</a>
         </li>
       <?php } ?>
+      <?php if($logged_in){
+        if ($_SESSION['user']['role'] == 'admin'){ ?>
+          <a class = 'nav-link' href = './Users.php'>Manage Users</a>
+        <?php }
+      } ?>
+      
+      
       <li class="nav-item">
         <a class="nav-link" href="./login.php">Login</a>
       </li>

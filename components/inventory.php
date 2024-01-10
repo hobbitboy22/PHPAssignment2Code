@@ -18,6 +18,10 @@ $equipment = $controllers->equipment()->get_all_equipments();
                 <th>Stock</th>
                 <th>Buy Price</th>
                 <th>Sell Price</th>
+                <?php if($_SESSION){ //Checks if the user is logged in to remove any error messages from the inventory page
+                      if($_SESSION['user']['role'] == 'admin'){?>
+                      <th>Manage</th> <?php
+                    }} ?>
             </tr>
         </thead>
         <tbody>
@@ -35,8 +39,14 @@ $equipment = $controllers->equipment()->get_all_equipments();
                     <td><?= htmlspecialchars($equip['sell_price']) ?></td>
                     <?php if($_SESSION){ //Checks if the user is logged in to remove any error messages from the inventory page
                       if($_SESSION['user']['role'] == 'admin'){?>
-                        <td><button type = 'button' class = 'btn btn-warning' data-bs-toggle = 'modal' data-bs-target = '#examplemodal'>Edit</button></td>
-                        <td><button type = 'button' class = 'btn btn-danger' data-bs-toggle = 'modal' data-bs-target = '#examplemodal'>Delete</button></td> <?php
+                        <td><button type = 'button' class = 'btn btn-warning' data-bs-toggle = 'modal' data-bs-target = '#examplemodal' style = "float: left; margin-right: 15px;">Edit</button>
+                        
+                          <form action = "./delete.php" method = "post">
+                            <input type = "hidden" name = "id" value = "<?= $equip['id'] ?>">
+                            <input type = "hidden" name = "action" value = "equipment">
+                            <button type = 'submit' class = 'btn btn-danger' style = "foat: right;">Delete</button>
+                          </form>
+                        </td> <?php
                     }} ?>
                 </tr>
             <?php endforeach; ?>
@@ -49,17 +59,46 @@ $equipment = $controllers->equipment()->get_all_equipments();
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">Add Item</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>HE HE HE HA</p>
+        <form action = "./create.php" method = "post" enctype = "multipart/form-data">
+          <div class = "form-group">
+            <label class="form-label">Item Name</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          <div class = "form-group">
+            <label class="form-label">Item Description</label>
+            <input type="text" name="description" class="form-control" required>
+          </div>
+          <div class = "form-group" style="width: 150px;">
+            <label class="form-label">Item Stock</label>
+            <input type="number" value=0 min=0 name="stock" class="form-control" required>
+          </div>
+          <div class = "form-group" style="width: 150px;">
+            <label class="form-label">Item Buy Price</label>
+            <input type="number" value=0 min=0 step=0.01 name="buy_price" class="form-control" required>
+          </div>
+          <div class = "form-group" style="width: 150px;">
+            <label class="form-label">Item Sell Price</label>
+            <input type="number" value=0 min=0 step=0.01 name="sell_price" class="form-control" required>
+          </div>
+          <div class = "form-group" style="width: 150px;">
+            <label class="form-label">Item Image</label>
+            <input type="file" name="image" class="form-control-md" required>
+          </div>
+          <div class="modal-footer">
+          <input type = "hidden" name = "action" value = "equipment">
+          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      
+        
+        
       </div>
     </div>
   </div>
