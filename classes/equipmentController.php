@@ -49,8 +49,7 @@ class equipmentController {
     public function update_equipment(array $equipment)
     {
         // SQL query to update equipment data
-        $sql = "UPDATE equipments SET name = :name, description = :description, image = :image WHERE id = :id";
-        
+        $sql = "UPDATE equipments SET name = :name, description = :description, image = :image, stock = :stock, buy_price = :buy_price, sell_price = :sell_price WHERE id = :id";
         // Execute the update query with the provided equipment data
         return $this->db->runSQL($sql, $equipment)->execute();
     }
