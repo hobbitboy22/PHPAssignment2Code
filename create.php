@@ -33,15 +33,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             'buy_price'=>$buyprice,
             'sell_price'=>$sellprice,
 
-    );
+        );
         // Creates the equipment
         $controllers->equipment()->create_equipment($args);
         // Returns the user back to the inventory page
         header('Location: Inventory.php');
-    }elseif ($action == "user"){
-        $id = $_POST['id'];
-        // Returns the user back to the users page
-        header('Location: Users.php');
+    }
+elseif ($action == "user"){
+    $id = $_POST['id'];
+    // Returns the user back to the users page
+    header('Location: Users.php');
     }
     
 }

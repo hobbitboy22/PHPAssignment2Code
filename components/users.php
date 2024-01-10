@@ -5,7 +5,7 @@ $users = $controllers->members()->get_all_members();
 ?>
 
 <div class="container mt-4">
-    <button type = "button" class = "btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#examplemodal">Add Equipment</button>
+    <button type = "button" class = "btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#examplemodal">Add user</button>
     <h2>User Management</h2> 
     <table class="table table-striped"> 
             <tr>
