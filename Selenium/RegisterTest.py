@@ -56,7 +56,7 @@ PasswordLogInInput.send_keys('P@ssword1')
 
 time.sleep(2)
 
-LogInButton = driver.find_element(By.XPATH, '')
+LogInButton = driver.find_element(By.XPATH, '/html/body/form/section/div/div/div/div/div/button')
 LogInButton.click()
 
 time.sleep(60)
