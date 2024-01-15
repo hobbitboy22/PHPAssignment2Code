@@ -27,8 +27,7 @@ $users = $controllers->members()->get_all_members();
                     <td><?= htmlspecialchars($user['email']) ?></td>
                     <?php if($_SESSION){ //Checks if the user is logged in to remove any error messages from the inventory page
                       if($_SESSION['user']['role'] == 'admin'){ ?>
-                        <td><button type = 'button' class = 'btn btn-warning' data-bs-toggle = 'modal' data-bs-target = '#examplemodal' style = "float: left; margin-right: 15px;">Edit</button>
-                        
+                        <td>
                           <form action = "./delete.php" method = "post">
                             <input type = "hidden" name = "id" value = "<?= $user['ID']?>">
                             <input type = "hidden" name = "action" value = "user">
