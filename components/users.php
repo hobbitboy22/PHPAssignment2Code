@@ -1,6 +1,7 @@
 <?php require_once './inc/functions.php'; ?>
 
 <?php 
+// Get all members and store in a variable
 $users = $controllers->members()->get_all_members();
 ?>
 
@@ -28,6 +29,7 @@ $users = $controllers->members()->get_all_members();
                     <?php if($_SESSION){ //Checks if the user is logged in to remove any error messages from the inventory page
                       if($_SESSION['user']['role'] == 'admin'){ ?>
                         <td>
+                        
                           <form action = "./delete.php" method = "post">
                             <input type = "hidden" name = "id" value = "<?= $user['ID']?>">
                             <input type = "hidden" name = "action" value = "user">
@@ -62,23 +64,8 @@ $users = $controllers->members()->get_all_members();
             <input type="text" name="description" class="form-control" value = '<?= $currentItem['description'] ?>' required>
           </div>
           <div class = "form-group" style="width: 150px;">
-            <label class="form-label">Item Stock</label>
+            <label class="form-label">Email</label>
             <input type="number" min=0 name="stock" class="form-control" value = <?= $currentItem['stock'] ?> required>
-          </div>
-          <div class = "form-group" style="width: 150px;">
-            <label class="form-label">Item Buy Price</label>
-            <input type="number" min=0 step=0.01 name="buy_price" class="form-control" value = <?= $currentItem['buy_price'] ?> required>
-          </div>
-          <div class = "form-group" style="width: 150px;">
-            <label class="form-label">Item Sell Price</label>
-            <input type="number" value=<?= $currentItem['sell_price'] ?> min=0 step=0.01 name="sell_price" class="form-control" required>
-          </div>
-          <div class = "form-group" style="width: 150px;">
-            <label class="form-label">Item Image</label>
-            <img src="<?= htmlspecialchars($currentItem['image']) ?>"
-                             alt="Image of <?= htmlspecialchars($equip['description']) ?>" 
-                             style="width: 100px; height: auto;"> 
-            <input type="file" name="image" class="form-control-md" >
           </div>
           <div class="modal-footer">
           <input type = "hidden" name = "action" value = "equipment">

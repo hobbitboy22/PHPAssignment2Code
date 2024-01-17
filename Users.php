@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     ?>
     <script>
         $(document).ready(function(){
-            $("#edititemmodal").modal("show");
+            $("#editusersmodal").modal("show");
         });
     </script>
     <?php

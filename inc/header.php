@@ -46,12 +46,14 @@ else{
           <?php echo $logged_in ? 'Home' : 'Home'; ?>
         </a>
       </li>
+      <!-- Changes what is displayed depending on if the user is logged in -->
       <?php if ($logged_in){ ?>
         <li class="nav-item">
           <a class="nav-link" href="./Inventory.php">Equipment</a>
         </li>
       <?php } ?>
       <?php if($logged_in){
+        // Only displayes if the user is an admin and logged in
         if ($_SESSION['user']['role'] == 'admin'){ ?>
           <a class = 'nav-link' href = './Users.php'>Manage Users</a>
         <?php }

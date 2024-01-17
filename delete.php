@@ -1,6 +1,7 @@
 <?php require_once 'inc/functions.php'; ?>
 
 <?php 
+// Gets the POST data from the form
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $action = $_POST['action'];
     if ($action == "equipment"){
